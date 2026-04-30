@@ -10,86 +10,57 @@ The system enables a robot to:
 - Generate collision-free paths using A* planning
 - Execute trajectories using closed-loop PID control
 
-The final system is capable of autonomous navigation in a mapped environment, from goal selection to path execution.
+The final system performs end-to-end autonomous navigation from goal selection to execution.
 
+---
 
 ## Acknowledgement
 
 This project was developed as part of ME597 (Autonomous Mobile Robots) at the University of Waterloo in a team of four.
 
-Each team member independently implemented modules across sensing, control, localization, and planning. The final system was constructed through collaborative review, testing, and selection of the most robust implementations.
+Each team member independently implemented modules, and the final system was constructed through collaborative review, testing, and selection of the most robust implementations.
 
 This repository reflects a fully integrated navigation stack based on that validation-driven process.
 
-## System Architecture
+---
 
-The navigation pipeline follows:
+## System Architecture
 
 **Sensor Data → Localization → Planning → Control → Actuation**
 
-- **Sensor Processing:** IMU, LiDAR, and odometry data are read through ROS2 topics
-- **Localization:** A particle filter estimates robot pose using sensor data and a known map
-- **Planning:** A* algorithm generates an optimal path using a cost/occupancy map
-- **Control:** PID controller computes velocity commands to follow the planned trajectory
-- **Execution:** Commands are published to the robot to achieve autonomous movement
+- Sensor data (IMU, LiDAR, odometry) is processed in real time
+- Particle filter estimates robot pose
+- A* planner generates optimal paths
+- PID controller tracks trajectory
+- Commands are executed on the robot
 
 ![mobile_robotics_plan](overview.jpg)
 
+---
 
-## Sensor Data Processing
+## Modules
 
-Implemented ROS2-based data acquisition and logging for:
-- IMU data
-- LiDAR scans
-- Wheel encoder (odometry) data
+### [Sensor Data Processing](./lab1_sensor_processing)
+ROS2-based sensor acquisition, motion primitives, and data logging.
 
-Developed motion primitives (line, spiral, circle) and logged sensor outputs for analysis and validation.
+### [Closed-Loop Control](./lab2_closed_loop_control)
+P/PI/PD/PID controllers for trajectory tracking and error minimization.
 
+### [Localization (Particle Filter)](./lab3_particle_filter_localization)
+Probabilistic pose estimation using LiDAR and occupancy maps.
 
-## Closed-Loop Control
+### [Path Planning and Navigation](./lab4_path_planning_navigation)
+A* path planning integrated with localization and control for full autonomy.
 
-Implemented P, PI, PD, and PID controllers for trajectory tracking:
-- Designed control laws for linear and angular motion
-- Computed tracking error and error derivatives/integrals
-- Applied actuator saturation limits
-- Tuned gains based on performance metrics (accuracy, overshoot, response time)
-
-Validated controller performance through trajectory tracking experiments.
-
-
-## Localization (Particle Filter)
-
-Implemented a particle filter for real-time robot localization:
-- Developed motion models for particle propagation
-- Constructed likelihood fields using occupancy maps
-- Computed particle weights based on sensor measurements
-- Performed resampling to improve state estimation
-
-Integrated localization into the navigation loop and visualized results in RViz.
-
-
-## Path Planning and Navigation
-
-Implemented A* path planning and integrated it with the full system:
-- Generated cost maps from occupancy grids
-- Implemented A* search with Manhattan and Euclidean heuristics
-- Produced waypoint trajectories for navigation
-- Integrated planner with localization and control modules
-
-Executed full autonomous navigation:
-- Selected goal positions in RViz
-- Generated collision-free paths
-- Followed paths using closed-loop control
-- Logged robot trajectory and performance
-
+---
 
 ## Key Technologies
 
-- **ROS2**
-- **Python**
-- **TurtleBot4**
-- **RViz**
-- **LiDAR / IMU / Odometry**
-- **PID Control**
-- **Particle Filter**
-- **A* Path Planning**
+- ROS2  
+- Python  
+- TurtleBot4  
+- RViz  
+- LiDAR / IMU / Odometry  
+- PID Control  
+- Particle Filter  
+- A* Path Planning
