@@ -12,7 +12,6 @@ The system enables a robot to:
 
 The final system is capable of autonomous navigation in a mapped environment, from goal selection to path execution.
 
----
 
 ## Acknowledgement
 
@@ -21,8 +20,6 @@ This project was developed as part of ME597 (Autonomous Mobile Robots) at the Un
 Each team member independently implemented modules across sensing, control, localization, and planning. The final system was constructed through collaborative review, testing, and selection of the most robust implementations.
 
 This repository reflects a fully integrated navigation stack based on that validation-driven process.
-
----
 
 ## System Architecture
 
@@ -38,7 +35,6 @@ The navigation pipeline follows:
 
 ![mobile_robotics_plan](overview.jpg)
 
----
 
 ## Sensor Data Processing
 
@@ -49,7 +45,6 @@ Implemented ROS2-based data acquisition and logging for:
 
 Developed motion primitives (line, spiral, circle) and logged sensor outputs for analysis and validation.
 
----
 
 ## Closed-Loop Control
 
@@ -61,7 +56,6 @@ Implemented P, PI, PD, and PID controllers for trajectory tracking:
 
 Validated controller performance through trajectory tracking experiments.
 
----
 
 ## Localization (Particle Filter)
 
@@ -73,7 +67,6 @@ Implemented a particle filter for real-time robot localization:
 
 Integrated localization into the navigation loop and visualized results in RViz.
 
----
 
 ## Path Planning and Navigation
 
@@ -89,7 +82,6 @@ Executed full autonomous navigation:
 - Followed paths using closed-loop control
 - Logged robot trajectory and performance
 
----
 
 ## Key Technologies
 
