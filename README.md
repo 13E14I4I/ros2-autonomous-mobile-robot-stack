@@ -1,64 +1,103 @@
-# Autonomous Mobile Robots
+# ROS2 Autonomous Mobile Robot Navigation Stack
 
+## Overview
 
-## Introduction
+This project implements a full autonomous mobile robotics pipeline using ROS2 and TurtleBot4, integrating perception, localization, planning, and control into a complete navigation system.
 
-This repo is made to help the students make a complete mobile robot stack from scratch! The course is covered in MTE544 at the University of Waterloo taught by 
-[Prof. Soo Jeon](https://uwaterloo.ca/mechanical-mechatronics-engineering/profile/soojeon). 
+The system enables a robot to:
+- Process real-time sensor data (IMU, LiDAR, odometry)
+- Estimate its pose using particle filter localization
+- Generate collision-free paths using A* planning
+- Execute trajectories using closed-loop PID control
 
-This set of labs and software stack was originally implemented by Prof. Yue Hu in the course MTE544.
+The final system is capable of autonomous navigation in a mapped environment, from goal selection to path execution.
 
-## What do you need to carry through this course?
-The course code is developed based on TurtleBot4 (tb4) topics but as long as you have a ROS/ROS2-based mobile robot with lidar, camera, IMU, and encoders you can follow all the labs. 
- 
-It is worth mentioning that you can still follow the course without a robot and only with simulation. 
+---
 
-## Overview of the course
-The course starts with lab1, which covers how to run the tb4 or the simulation, then it covers reading the sensory data and the explanation of the sensory outputs, and how to log them. 
+## Acknowledgement
 
-The overall stack for a mobile robot can be summarized as something like this:
+This project was developed as part of ME597 (Autonomous Mobile Robots) at the University of Waterloo in a team of four.
+
+Each team member independently implemented modules across sensing, control, localization, and planning. The final system was constructed through collaborative review, testing, and selection of the most robust implementations.
+
+This repository reflects a fully integrated navigation stack based on that validation-driven process.
+
+---
+
+## System Architecture
+
+The navigation pipeline follows:
+
+**Sensor Data → Localization → Planning → Control → Actuation**
+
+- **Sensor Processing:** IMU, LiDAR, and odometry data are read through ROS2 topics
+- **Localization:** A particle filter estimates robot pose using sensor data and a known map
+- **Planning:** A* algorithm generates an optimal path using a cost/occupancy map
+- **Control:** PID controller computes velocity commands to follow the planned trajectory
+- **Execution:** Commands are published to the robot to achieve autonomous movement
+
 ![mobile_robotics_plan](overview.jpg)
 
-The development of this stack starts from LAB-2 by developing a closed-loop controller. You can see in the diagram the components that you will be developing in the remaining labs and how they are interconnected.
+---
 
-## Structure of this repository
-This repository is divided in branches. Each lab will have its own branch. The main branch contains this readme file and some guidelines such as the two markdown files to run your robot in simulation and how to connect to the real robot.
+## Sensor Data Processing
 
-For each lab, switch to the respective branch to see the manual and codes.
+Implemented ROS2-based data acquisition and logging for:
+- IMU data
+- LiDAR scans
+- Wheel encoder (odometry) data
 
-## Expected outcome for the labs
+Developed motion primitives (line, spiral, circle) and logged sensor outputs for analysis and validation.
 
-By the end of this course, you should:
-- Have learned the basics of ROS2;
-- Be able to apply theoretical concepts to practical mobile robotics problems;
-- Have a complete software stack that can help you develop further features and functionalities for your robotic applications.
+---
 
-## LAB-1 - Sensor data processing
+## Closed-Loop Control
 
-In this lab, we go over the ROS2 components and libraries in the form of reading and writing the sensory data.
+Implemented P, PI, PD, and PID controllers for trajectory tracking:
+- Designed control laws for linear and angular motion
+- Computed tracking error and error derivatives/integrals
+- Applied actuator saturation limits
+- Tuned gains based on performance metrics (accuracy, overshoot, response time)
 
-It will be clear how a middleware like ROS2 can be helpful when handling different processes both on the local and other machines. 
+Validated controller performance through trajectory tracking experiments.
 
-You will learn how to log sensors' output when writing to the actuators to make the robot do different trajectories. Logging is one of the most important aspects of robotics. It provides denser information around the goal intended to achieve, so downstream decisions can be made more thoughtfully. 
+---
 
-## LAB-2 - Closed-loop controller
+## Localization (Particle Filter)
 
-In this lab, you will learn how to lay a thin version of the overall stack. You will start laying the bricks by completing the closed-loop controller. 
+Implemented a particle filter for real-time robot localization:
+- Developed motion models for particle propagation
+- Constructed likelihood fields using occupancy maps
+- Computed particle weights based on sensor measurements
+- Performed resampling to improve state estimation
 
-The closed loop controller is a concept already covered in your previous control course(s) (ME/MTE360 or a similar course if you are not an MME student). In this lab, you will learn how to implement that without using propriety software like MATLAB. 
+Integrated localization into the navigation loop and visualized results in RViz.
 
-One major takeaway from this lab is how to take derivatives and integration from a stream of incoming data. This is extremely useful for real-world applications and is largely utilized in many engineering applications (not only robotics), especially when control is needed.
+---
 
-You will also gain experience implementing Object Oriented Programming (OOP) in robotics using Python. 
+## Path Planning and Navigation
 
-## LAB-3 - Localization
+Implemented A* path planning and integrated it with the full system:
+- Generated cost maps from occupancy grids
+- Implemented A* search with Manhattan and Euclidean heuristics
+- Produced waypoint trajectories for navigation
+- Integrated planner with localization and control modules
 
-In this lab, you will get familiar with different estimation methods for localization. 
+Executed full autonomous navigation:
+- Selected goal positions in RViz
+- Generated collision-free paths
+- Followed paths using closed-loop control
+- Logged robot trajectory and performance
 
-This part would be the implementation of a Particle Filter (PF).
-You will experience how the motion model of the mobile robot, a prior map and the real-time sensor measurement can be used to both have better localization.
+---
 
-## LAB-4 - Path planning
+## Key Technologies
 
-In this lab, all the stacks will come together. 
-All the modules will be activated: first, you will implement two different path-planning methods to design a path inside the maze; then, your controller should follow the waypoints from the path and use your localizer as feedback. As you are moving around, you should log the robot states and the waypoints designed, so afterward you can quantify the performance of your stack. 
+- **ROS2**
+- **Python**
+- **TurtleBot4**
+- **RViz**
+- **LiDAR / IMU / Odometry**
+- **PID Control**
+- **Particle Filter**
+- **A* Path Planning**
