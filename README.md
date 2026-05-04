@@ -17,9 +17,7 @@ The final system performs end-to-end autonomous navigation from goal selection t
 
 This project was developed as part of ME597 (Autonomous Mobile Robots) at the University of Waterloo in a team of four.
 
-Each team member independently implemented modules, and the final system was constructed through collaborative review, testing, and selection of the most robust implementations.
-
-This repository reflects a fully integrated navigation stack based on that validation-driven process.
+For each major module, each team member independently developed or attempted implementations, then we reviewed, tested, and compared each solution as a group. The final repository reflects the implementations that worked best after collaborative debugging and validation.
 
 ## System Architecture
 
