@@ -12,7 +12,6 @@ The system enables a robot to:
 
 The final system performs end-to-end autonomous navigation from goal selection to execution.
 
----
 
 ## Acknowledgement
 
@@ -21,8 +20,6 @@ This project was developed as part of ME597 (Autonomous Mobile Robots) at the Un
 Each team member independently implemented modules, and the final system was constructed through collaborative review, testing, and selection of the most robust implementations.
 
 This repository reflects a fully integrated navigation stack based on that validation-driven process.
-
----
 
 ## System Architecture
 
@@ -36,7 +33,6 @@ This repository reflects a fully integrated navigation stack based on that valid
 
 ![mobile_robotics_plan](overview.jpg)
 
----
 
 ## Modules
 
@@ -52,7 +48,6 @@ Probabilistic pose estimation using LiDAR and occupancy maps.
 ### [Path Planning and Navigation](./lab4_path_planning_navigation)
 A* path planning integrated with localization and control for full autonomy.
 
----
 
 ## Key Technologies
 
