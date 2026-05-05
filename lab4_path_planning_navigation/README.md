@@ -48,7 +48,9 @@ Localization → Planning → Control → Execution
 - Compared Manhattan vs Euclidean heuristics for path efficiency
 - Observed close alignment between planned and executed trajectories
 
-![A* path](figs/example_Astar_path.png)
+<p align="center">
+  <img src=figs/example_Astar_path.png>
+</p>
 ![Navigation result](figs/example_Rviz_path.png)
 
 ## Role in Full Stack
