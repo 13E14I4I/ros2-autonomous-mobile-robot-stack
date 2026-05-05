@@ -51,7 +51,9 @@ Localization → Planning → Control → Execution
 <p align="center">
   <img src=figs/example_Astar_path.png>
 </p>
-![Navigation result](figs/example_Rviz_path.png)
+<p align="center">
+  <img src=figs/example_Rviz_path.png>
+</p>
 
 ## Role in Full Stack
 
