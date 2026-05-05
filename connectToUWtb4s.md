@@ -73,6 +73,3 @@ export ROS_DOMAIN_ID=X
 ```
 - Then add the following file to your bashrc: ```source ~/.tb4_env```
 This is a temporary line you add to your bashrc for connection to tb4, when you want to work with your system at home, you should comment it by ``` # ``` characater.
-
-
-### Once you are able to see the topics, let the TAs know so you can move to the next step!!
