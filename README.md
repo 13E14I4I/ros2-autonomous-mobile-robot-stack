@@ -29,7 +29,9 @@ For each major module, each team member independently developed or attempted imp
 - PID controller tracks trajectory
 - Commands are executed on the robot
 
-![mobile_robotics_plan](overview.jpg)
+<p align="center">
+  <img src=overview.jpg>
+</p>
 
 
 ## Modules
