@@ -17,6 +17,10 @@ The final system performs end-to-end autonomous navigation from goal selection t
 
 This project was developed as part of ME597 (Autonomous Mobile Robots) at the University of Waterloo in a team of four.
 
+Original course/lab materials:
+- ME597c student repository: https://github.com/ntntran200701/ME597c-Students
+- MTE544 student repository: https://github.com/UW-MTE544/MTE544_student
+
 For each major module, each team member independently developed or attempted implementations, then we reviewed, tested, and compared each solution as a group. The final repository reflects the implementations that worked best after collaborative debugging and validation.
 
 ## System Architecture
