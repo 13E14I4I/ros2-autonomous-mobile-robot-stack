@@ -2,7 +2,7 @@ from rclpy.time import Time
 from utilities import Logger
 
 # Controller type
-P=0 # poportional
+P=0 # proportional
 PD=1 # proportional and derivative
 PI=2 # proportional and integral
 PID=3 # proportional, integral, derivative
@@ -22,8 +22,7 @@ class PID_ctrl:
         self.ki=ki    # integral gain
         
         self.logger=Logger(filename_,headers=["e", "e_dot", "e_int", "stamp"])
-        # Remeber that you are writing to the file named filename_ or errors.csv the following:
-            # error, error_dot, error_int and time stamp
+        # Logs error, error_dot, error_int, and timestamp to the specified file.
 
     
     def update(self, stamped_error, status):
@@ -67,7 +66,7 @@ class PID_ctrl:
             # use constant dt if the messages arrived inconsistent
             # for example dt=0.1 overwriting the calculation          
             
-            # TODO Part 5: calculate the error dot 
+            # Implementation Note: Computes the derivative of the error over time.
             #error_dot += (self.history[len(self.history)][0]-self.history[len(self.history)-1][0])/dt
             error_dot += (self.history[i][0]-self.history[i-1][0])/dt
             #error_dot = 0
@@ -80,7 +79,7 @@ class PID_ctrl:
         # Compute the error integral
         sum_=0
         for hist in self.history:
-            # TODO Part 5: Gather the integration
+            # Implementation Note: Accumulates error for integral calculation.
             sum_+= hist[0]
             pass
         
@@ -88,14 +87,14 @@ class PID_ctrl:
 
 
 
-        # TODO Part 4: Log your errors
+        # Implementation Note: Logs error components and timestamp.
         self.logger.log_values([latest_error,error_dot,error_int,Time.from_msg(stamp).nanoseconds])
         
-        # TODO Part 4: Implement the control law of P-controller
+        # Implementation Note: Proportional control law.
         if self.type == P:
             return self.kp * latest_error
         
-        # TODO Part 5: Implement the control law corresponding to each type of controller
+        # Implementation Note: Control laws for PD, PI, and PID controllers.
         elif self.type == PD:
             pass
             return (self.kp * latest_error + self.kv * error_dot)

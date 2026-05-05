@@ -45,7 +45,7 @@ class decision_maker(Node):
 
         self.reachThreshold=0.1
 
-        # TODO part 5: call the proper types
+        # Implementation Note: Initializes localization using particle filter.
         self.localizer=localization(particlesFilter)
         #self.localizer=localization(rawSensors)
         

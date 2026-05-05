@@ -23,7 +23,7 @@ class planner:
         y = goalPoint[1]
         return x, y
 
-    # TODO Part 6: Implement the trajectories here
+    # Implementation Note: Generates trajectory points for predefined paths.
     def trajectory_planner(self):
         from math import exp
 

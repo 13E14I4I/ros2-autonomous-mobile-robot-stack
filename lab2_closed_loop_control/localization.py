@@ -16,8 +16,8 @@ class localization(Node):
 
         super().__init__("localizer")
         
-        # TODO Part 3: Define the QoS profile variable based on whether you are using the simulation (Turtlebot 3 Burger) or the real robot (Turtlebot 4)
-        # Remember to define your QoS profile based on the information available in "ros2 topic info /odom --verbose" as explained in Tutorial 3
+        # Implementation Note: QoS profile for odometry subscription, configured for simulation or real robot.
+        # QoS settings based on "ros2 topic info /odom --verbose" as per Tutorial 3.
 
         odom_qos=QoSProfile(
             reliability=2,  # RELIABLE
@@ -31,7 +31,7 @@ class localization(Node):
         self.pose=None
         
         if localizationType == rawSensor:
-        # TODO Part 3: subscribe to the position sensor topic (Odometry)
+        # Implementation Note: Subscribes to odometry topic for pose data.
             self.create_subscription(odom, "/odom", self.odom_callback, odom_qos)
         else:
             print("This type doesn't exist", sys.stderr)
@@ -39,7 +39,7 @@ class localization(Node):
     
     def odom_callback(self, pose_msg):
         
-        # TODO Part 3: Read x,y, theta, and record the stamp
+        # Implementation Note: Extracts position, orientation, and timestamp from odometry message.
         stamp = pose_msg.header.stamp # Extract timestamp
         x = pose_msg.pose.pose.position.x # Extract position x
         y = pose_msg.pose.pose.position.y # Extract position y
@@ -55,9 +55,7 @@ class localization(Node):
     def getPose(self):
         return self.pose
 
-# TODO Part 3
-# Here put a guard that makes the node run, ONLY when run as a main thread!
-# This is to make sure this node functions right before using it in decision.py
+# Implementation Note: Main guard to run localization node when executed as script.
 if __name__=="__main__":
     init()  # Initialize ROS2
 

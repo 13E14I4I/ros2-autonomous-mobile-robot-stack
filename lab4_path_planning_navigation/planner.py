@@ -16,8 +16,8 @@ class planner:
 
         self.type=type_
         self.mapName=mapName
-        ## TODO: Adjust the laser_sig value which decides the safety distance to obstacles
-        self.m_utilites = mapManipulator(filename_=self.mapName, laser_sig=0.5)
+        # Implementation Note: Sets laser standard deviation to determine obstacle safety distance.
+        self.m_utilities = mapManipulator(filename_=self.mapName, laser_sig=0.5)
         self.costMap = self.m_utilites.make_likelihood_field()
 
     
@@ -44,24 +44,24 @@ class planner:
         startPoseCart = np.array(startPoseCart)[:2]
         endPoseCart = np.array(endPoseCart)[:2]
 
-        # TODO: Convert to pixel coordinates using the m_utilites
-        startPose = self.m_utilites.position_2_cell(startPoseCart)
-        endPose = self.m_utilites.position_2_cell(endPoseCart)
+        # Implementation Note: Converts Cartesian coordinates to pixel coordinates for path planning.
+        startPose = self.m_utilities.position_2_cell(startPoseCart)
+        endPose = self.m_utilities.position_2_cell(endPoseCart)
 
         # convert to tuple
         startPose = (startPose[0], startPose[1])
         endPose = (endPose[0], endPose[1])
-        # TODO: Call the A* search algorithm
+        # Implementation Note: Executes A* search algorithm to find optimal path.
         path = search(self.costMap, startPose, endPose)
         if path is None:
             return None
         
-        pathCart = self.m_utilites.cell_2_position(path)
+        pathCart = self.m_utilities.cell_2_position(path)
         pathCart_list = pathCart.tolist()
         print("Time taken for A* is ", time.time()-start_time)
 
         # Visualization
-        allObstacles = np.array(self.m_utilites.getAllObstacles())
+        allObstacles = np.array(self.m_utilities.getAllObstacles())
         plt.plot(allObstacles[:, 0], allObstacles[:, 1], 'ko', markersize=4)
         plt.axis('equal')
         plt.title('A* path planning')

@@ -12,7 +12,7 @@ class particle:
         self.weight = weight
 
     def motion_model(self, v, w, dt):
-        #TODO: Implement the motion model for the particle
+        # Implementation Note: Updates particle pose based on motion model.
         """
         v: linear velocity
         w: angular velocity
@@ -28,7 +28,7 @@ class particle:
          self.pose[1] += v*(cos(theta))
         self.pose[2] += w * dt
 
-    # TODO: You need to explain the following function to TA
+    # Implementation Note: Computes particle weight using likelihood field.
     def calculateParticleWeight(self, scanOutput: LaserScan, mapManipulatorInstance: mapManipulator, laser_to_odom_transformation: np.array):
 
         

@@ -85,7 +85,7 @@ class FileReader:
     
     
 
-# TODO Part 3: Implement the conversion from Quaternion to Euler Angles
+# Implementation Note: Converts quaternion to Euler angles.
 def euler_from_quaternion(quat):
     """
     Convert quaternion (w in last place) to euler roll, pitch, yaw.
@@ -101,12 +101,12 @@ def euler_from_quaternion(quat):
     # just unpack yaw
     return yaw
 
-#TODO Part 4: Implement the calculation of the linear error
+# Implementation Note: Calculates Euclidean distance as linear error.
 def calculate_linear_error(current_pose, goal_pose):
         
-    # Compute the linear error in x and y
-    # Remember that current_pose = [x,y, theta, time stamp] and goal_pose = [x,y]
-    # Remember to use the Euclidean distance to calculate the error.
+    # Computes linear error in position.
+    # current_pose: [x, y, theta, timestamp]; goal_pose: [x, y]
+    # Uses Euclidean distance for error calculation.
     
     current_x, current_y, _, _ = current_pose
     goal_x = float(goal_pose[0])
@@ -115,13 +115,13 @@ def calculate_linear_error(current_pose, goal_pose):
 
     return error_linear
 
-#TODO Part 4: Implement the calculation of the angular error
+# Implementation Note: Computes angular error between current and desired heading.
 def calculate_angular_error(current_pose, goal_pose):
 
-    # Compute the linear error in x and y
-    # Remember that current_pose = [x,y, theta, time stamp] and goal_pose = [x,y]
-    # Use atan2 to find the desired orientation
-    # Remember that this function returns the difference in orientation between where the robot currently faces and where it should face to reach the goal
+    # Computes angular error in orientation.
+    # current_pose: [x, y, theta, timestamp]; goal_pose: [x, y]
+    # Uses atan2 to determine desired orientation.
+    # Returns the orientation difference between current facing and required heading to reach goal.
 
     current_x, current_y, current_th, _ = current_pose
     goal_x, goal_y = goal_pose[0],goal_pose[1]
@@ -132,7 +132,7 @@ def calculate_angular_error(current_pose, goal_pose):
     # Compute angular error
     error_angular = desired_angle - current_th
 
-    # Remember to handle the cases where the angular error might exceed the range [-π, π]
+    # Normalize angular error to [-π, π] range.
     error_angular = (error_angular + M_PI) % (2 * M_PI) - M_PI
 
     

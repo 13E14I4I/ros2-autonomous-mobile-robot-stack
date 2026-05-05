@@ -6,19 +6,17 @@ from rclpy.node import Node
 from utilities import Logger, euler_from_quaternion
 from rclpy.qos import QoSProfile
 
-# TODO Part 3: Import message types needed: 
-    # For sending velocity commands to the robot: Twist
-    # For the sensors: Imu, LaserScan, and Odometry
-# Check the online documentation to fill in the lines below
-from geometry_msgs.msg import Twist  # For velocity commands
-from sensor_msgs.msg import Imu  # For IMU sensor data
-from sensor_msgs.msg import LaserScan  # For Lidar sensor data
-from nav_msgs.msg import Odometry  # For wheel encoder (odometry) data
+# Import ROS2 message types for sensor data and velocity commands:
+# - Twist: for sending velocity commands to the robot
+# - Imu: for IMU sensor data
+# - LaserScan: for Lidar sensor data
+# - Odometry: for wheel encoder (odometry) data
+from geometry_msgs.msg import Twist
+from sensor_msgs.msg import Imu
+from sensor_msgs.msg import LaserScan
+from nav_msgs.msg import Odometry
 
 from rclpy.time import Time
-
-# You may add any other imports you may need/want to use below
-# import ...
 
 
 CIRCLE=0; SPIRAL=1; ACC_LINE=2
@@ -39,7 +37,7 @@ class motion_executioner(Node):
         self.odom_initialized=False
         self.laser_initialized=False
         
-        # TODO Part 3: Create a publisher to send velocity commands by setting the proper parameters in (...)
+        # Implementation Note: Publisher for sending velocity commands to the robot.
         self.vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
                 
         # loggers
@@ -47,7 +45,7 @@ class motion_executioner(Node):
         self.odom_logger=Logger('odom_content_'+str(motion_types[motion_type])+'.csv', headers=["x","y","th", "stamp"])
         self.laser_logger=Logger('laser_content_'+str(motion_types[motion_type])+'.csv', headers=["ranges", "angle_increment", "x", "y", "stamp"])
         
-        # TODO Part 3: Create the QoS profile by setting the proper parameters in (...)
+        # Implementation Note: QoS profile configured for reliable and transient local communication with sensors.
         qos = QoSProfile(
             reliability=2,  # RELIABLE
             durability=2,  # TRANSIENT_LOCAL
@@ -62,7 +60,8 @@ class motion_executioner(Node):
         #     depth=10  # Stores up to 10 messages before dropping old ones
         # )
 
-        # TODO Part 5: Create below the subscription to the topics corresponding to the respective sensors
+        
+        # Implementation Note: Subscriptions to sensor topics for real-time data acquisition from IMU, odometry, and laser scan.
         # IMU subscription
         
         self.create_subscription(Imu, "/imu", self.imu_callback, qos)
@@ -78,11 +77,11 @@ class motion_executioner(Node):
         self.create_timer(0.1, self.timer_callback)
 
 
-    # TODO Part 5: Callback functions: complete the callback functions of the three sensors to log the proper data.
-    # To also log the time you need to use the rclpy Time class, each ros msg will come with a header, and then
-    # inside the header you have a stamp that has the time in seconds and nanoseconds, you should log it in nanoseconds as 
-    # such: Time.from_msg(imu_msg.header.stamp).nanoseconds
-    # You can save the needed fields into a list, and pass the list to the log_values function in utilities.py
+    # Implementation Note: Callback functions for processing and logging sensor data, including timestamps extracted from message headers.
+    # Each ROS sensor message includes a header timestamp. The timestamp is converted to nanoseconds with rclpy.time.Time so IMU, odometry, and LiDAR measurements
+    # can be logged using a consistent time base for post-processing.
+    #
+    # The relevant message fields are collected into a list and passed to Logger.log_values(), which writes one row to the corresponding CSV file.
 
     def imu_callback(self, imu_msg: Imu):
         timestamp = Time.from_msg(imu_msg.header.stamp).nanoseconds
@@ -144,7 +143,7 @@ class motion_executioner(Node):
         self.vel_publisher.publish(cmd_vel_msg)
         
     
-    # TODO Part 4: Motion functions: complete the functions to generate the proper messages corresponding to the desired motions of the robot
+    # Implementation Note: Functions for generating velocity commands for different motion patterns.
 
     def make_circular_twist(self):
         
@@ -157,7 +156,7 @@ class motion_executioner(Node):
         self.radius_ = min(self.radius_ + 0.005, 2.0)  # Slowly increase the radius & Limit max radius to 1.0 
         msg = Twist() # fill up the twist msg for spiral motion
         msg.linear.x = 0.2
-        msg.angular.z = self.radius_  # Keep rotating 
+        msg.angular.z = msg.linear.x / self.radius_  # Keep rotating 
         return msg
     
     def make_acc_line_twist(self):

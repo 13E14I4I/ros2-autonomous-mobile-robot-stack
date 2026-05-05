@@ -21,7 +21,7 @@ class Logger:
     def log_values(self, values_list):
 
         with open(self.filename, 'a') as file:
-            # TODO Part 5: Write the values from the list to the file
+            # Implementation Note: Writes the list of values to the CSV file as a comma-separated line.
             vals_str = ", ".join(map(str, values_list))  # Convert to comma-separated string
             vals_str += "\n"
             file.write(vals_str)
@@ -75,7 +75,7 @@ class FileReader:
         return headers, table
 
 
-# TODO Part 5: Implement the conversion from Quaternion to Euler Angles
+# Implementation Note: Converts quaternion to Euler angles, returning the yaw angle.
 def euler_from_quaternion(quat):
     """
     Convert quaternion (w in last place) to euler roll, pitch, yaw.

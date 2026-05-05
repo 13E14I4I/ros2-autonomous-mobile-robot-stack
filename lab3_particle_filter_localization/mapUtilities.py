@@ -167,7 +167,7 @@ class mapManipulator(Node):
         h = self.height
         return (np.array(np.floor((-origin + pos_array)/res), dtype=np.int32)) - np.array([0, h])
 
-    # TODO part 4: See through this method and explain how it works to the TA
+    # Implementation Note: Generates likelihood field for obstacle distances.
     def make_likelihood_field(self):
     
         image_array=self.image_array #2d array

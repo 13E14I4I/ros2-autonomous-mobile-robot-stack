@@ -39,7 +39,7 @@ def return_path(current_node, maze):
     # Return reversed path as we need to show from start to end path
     path = path[::-1]
     start_value = 0
-    # we update the path of start to end found by A-star serch with every step incremented by 1
+    # we update the path of start to end found by A-star search with every step incremented by 1
     for i in range(len(path)):
         result[path[i][0]][path[i][1]] = start_value
         start_value += 1
@@ -77,9 +77,7 @@ def search(maze, start, end):
         print("Start or end is on a wall, or outside the boundaries of the maze")
         return None
     
-    # TODO PART 4 Create start and end node with initized values for g, h and f
-    # Use None as parent if not defined
-     
+    # Implementation Note: Initializes start and end nodes with calculated g, h, and f values.
     start_node = Node(None, start)
     start_node.g = 0 # cost from start Node
     start_node.h = manhattan(start, end) if USE_MANHATTAN else euclidean(start, end) # heuristic estimated cost to end Node
@@ -106,7 +104,7 @@ def search(maze, start, end):
     outer_iterations = 0
     max_iterations = (len(maze) // 2) ** 10
 
-    # what squares do we search . serarch movement is left-right-top-bottom
+    # what squares do we search . search movement is left-right-top-bottom
     # (4 movements) from every positon
 
     move = [[-1, 0],  # go up
@@ -122,7 +120,7 @@ def search(maze, start, end):
         1) We first get the current node by comparing all f cost and selecting the lowest cost node for further expansion
         2) Check max iteration reached or not . Set a message and stop execution
         3) Remove the selected node from yet_to_visit dict and add this node to visited dict
-        4) Perofmr Goal test and return the path else perform below steps
+        4) Perform Goal test and return the path else perform below steps
         5) For selected node find out all children (use move to find children)
             a) get the current postion for the selected node (this becomes parent node for the children)
             b) check if a valid position exist (boundary will make few nodes invalid)

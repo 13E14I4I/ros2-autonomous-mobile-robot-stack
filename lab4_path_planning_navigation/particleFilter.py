@@ -52,7 +52,7 @@ class particleFilter(Node):
         self.timeSynchronizer.registerCallback(self.filterCallback)
 
         # Create the initial pose subscriber (used for initializing the particle filter)
-        self.initialPoseSubsriber = self.create_subscription(
+        self.initialPoseSubscriber = self.create_subscription(
             PoseWithCovarianceStamped, "/initialpose", self.initialPose2Dcallback, 10)
 
         # Create the publishers
@@ -62,7 +62,7 @@ class particleFilter(Node):
         self.odomPosePublisher = self.create_publisher(Odometry, '/odom_pose', 10)
 
         # Create the map utilities object
-        # TODO: You can tune your laser_sig here
+        # Implementation Note: Configures laser standard deviation for likelihood field.
         self.mapUtilities = mapManipulator(mapFilename, laser_sig=0.1)
         self.mapUtilities.make_likelihood_field()
         self.occ_map = self.mapUtilities.to_message()

@@ -1,7 +1,3 @@
-# You can use this file to plot the loged sensor data
-# Note that you need to modify/adapt it to your own files
-# Feel free to make any modifications/additions here
-
 import matplotlib.pyplot as plt
 from utilities import FileReader
 
